@@ -1,0 +1,42 @@
+// Prisma schema for users, agencies, complaints, and roles
+// This is a basic structure; you can extend fields as needed
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id       String @id @default(auto()) @map("_id") @db.ObjectId
+    username String @unique
+    password String
+    email    String @unique
+    role     String
+}
+
+model Agency {
+    id           String @id @default(auto()) @map("_id") @db.ObjectId
+    name         String
+    address      String
+    contactEmail String
+}
+
+model Complaint {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    userId      String
+    agencyId    String
+    status      String
+    createdAt   DateTime @default(now())
+}
+
+model Role {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    name        String   @unique
+    permissions String[]
+}
