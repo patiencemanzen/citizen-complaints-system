@@ -1,4 +1,13 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+
+export interface Complaint extends Document {
+  readonly title: string;
+  readonly description: string;
+  readonly userId: string;
+  readonly agencyId: string;
+  readonly status: string;
+  readonly createdAt: Date;
+}
 
 export const ComplaintSchema = new Schema({
   title: { type: String, required: true },

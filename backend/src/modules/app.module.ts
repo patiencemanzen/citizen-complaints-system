@@ -8,6 +8,8 @@ import { AgenciesModule } from './agencies.module';
 import { ComplaintsModule } from './complaints.module';
 import { RolesModule } from './roles.module';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from '../utilities/roles.guard';
 
 @Module({
   imports: [
@@ -25,6 +27,12 @@ import { ConfigModule } from '@nestjs/config';
     RolesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}
