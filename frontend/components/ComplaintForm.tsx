@@ -43,11 +43,11 @@ export default function ComplaintForm({ onSuccess }: { onSuccess?: (complaint: a
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
             {toast && <NotificationToast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
             <div className="mb-5">
-                <label htmlFor="agencyId" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Agency</label>
+                <label htmlFor="agencyId" className="block mb-2 text-sm font-medium text-green-700">Agency</label>
                 <select
                     id="agencyId"
                     {...register('agencyId', { required: true })}
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 >
                     <option value="">Select an agency</option>
                     {agencies.map(a => <option key={a._id} value={a._id}>{a.name}</option>)}
@@ -55,31 +55,31 @@ export default function ComplaintForm({ onSuccess }: { onSuccess?: (complaint: a
                 {errors.agencyId && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Agency is required!</span>}
             </div>
             <div className="mb-5">
-                <label htmlFor="title" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">title</label>
+                <label htmlFor="title" className="block mb-2 text-sm font-medium text-green-700">title</label>
                 <input
                     id="title"
                     {...register('title', { required: true })}
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                     placeholder="title"
                 />
                 {errors.title && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> title is required!</span>}
             </div>
             <div className="mb-5">
-                <label htmlFor="description" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Description</label>
+                <label htmlFor="description" className="block mb-2 text-sm font-medium text-green-700">Description</label>
                 <textarea
                     id="description"
                     {...register('description', { required: true })}
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                     placeholder="Describe your complaint"
                 />
                 {errors.description && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Description is required!</span>}
             </div>
             <div className="mb-5">
-                <label htmlFor="contactInfo" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Contact Info (optional)</label>
+                <label htmlFor="contactInfo" className="block mb-2 text-sm font-medium text-green-700">Contact Info (optional)</label>
                 <input
                     id="contactInfo"
                     {...register('contactInfo')}
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                     placeholder="Your contact info"
                 />
             </div>

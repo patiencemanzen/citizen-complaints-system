@@ -7,9 +7,9 @@ export default function ResetPasswordPage() {
     const [email, setEmail] = useState("");
 
     return (
-        <main className="flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="w-full max-w-md p-8 bg-white rounded shadow">
-                <h2 className="text-2xl font-bold mb-6 text-center">Reset Password</h2>
+        <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-black">
+            <div className="w-full max-w-md p-8 bg-white rounded-3xl shadow">
+                <h2 className="text-2xl font-bold mb-6 text-center text-slate-800">Reset Password</h2>
                 <div className="mb-4">
                     <label className="text-base font-medium text-gray-900">Email address</label>
                     <input

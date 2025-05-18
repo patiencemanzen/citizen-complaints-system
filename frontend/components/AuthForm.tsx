@@ -4,6 +4,7 @@ import axios from "@/utils/axios";
 import NotificationToast from "./NotificationToast";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { useAuth } from "@/context/AuthContext";
+import Button from "./button";
 
 type AuthFormProps = {
     mode: "login" | "register";
@@ -62,7 +63,7 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+        <form onSubmit={handleSubmit} className="max-w-sm mx-auto items-center">
             {toast && <NotificationToast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
             {mode === "register" && (
                 <div className="mb-5">
@@ -76,7 +77,7 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
                         value={form.username}
                         onChange={handleChange}
                         required
-                        className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                        className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         placeholder="Your username"
                     />
                 </div>
@@ -92,7 +93,7 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
                     value={form.email}
                     onChange={handleChange}
                     required
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                     placeholder="you@email.com"
                 />
             </div>
@@ -107,13 +108,18 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
                     value={form.password}
                     onChange={handleChange}
                     required
-                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                     placeholder="Your password"
                 />
             </div>
-            <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+            <Button
+                className="self-start px-4 py-3 leading-none text-gray-200 border border-gray-800 rounded-lg focus:outline-none focus:shadow-outline bg-gradient-to-b hover:from-indigo-500 from-gray-900 to-black"
+                as="submit"
+                isLoading={loading}
+            >
                 {mode === "login" ? "Login" : "Register"}
-            </button>
+            </Button>
+            <hr className="my-5" />
             <GoogleLoginButton />
         </form>
     );

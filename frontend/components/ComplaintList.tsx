@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import PageLoader from './PageLoader';
 import ComplaintComments, { Comment } from './ComplaintComments';
-import Image from 'next/image';
 
 type Complaint = {
     id: string;
@@ -26,12 +25,14 @@ export default function ComplaintList({ type }: { type: 'user' | 'agency' }) {
 
         axios.get(endpoint)
             .then(res => {
-                const data = Array.isArray(res.data)
+                let data = Array.isArray(res.data)
                     ? res.data.map((c: unknown) => {
                         const complaint = c as Record<string, unknown>;
                         return { ...complaint, id: complaint._id as string } as Complaint;
                     })
                     : [];
+
+                data = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
                 setComplaints(data);
             })
             .catch(() => setComplaints([]))
@@ -42,15 +43,20 @@ export default function ComplaintList({ type }: { type: 'user' | 'agency' }) {
 
     return (
         <>
-            <section className="bg-gray-100 py-10">
-                <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 gap-6 px-4 sm:px-0">
-                        {complaints.map((c) => (
-                            <div key={c.id} className="overflow-hidden bg-white rounded-md">
-                                <div className="px-5 py-6">
+            <section className="bg-gray-100 rounded-3xl">
+                <div className="px-4 py-10 mx-auto max-w-7xl sm:px-6 lg:px-10 lg:py-10">
+                    <ol className="relative border-s border-gray-200 dark:border-gray-700">
+                        {complaints.map((c, idx) => {
+                            // Sort comments descending by createdAt if present
+                            const sortedComments = (c.comments || []).slice().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                            return (
+                                <li key={c.id} className={`mb-10 ms-6${idx === complaints.length - 1 ? '' : ''}`}>
+                                    <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                        <svg className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
+                                    </span>
                                     <div className="flex items-center justify-between">
-                                        <Image width={500} height={500} unoptimized className="flex-shrink-0 object-cover w-10 h-10 rounded-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-1.jpg" alt="" />
-
                                         <div className="min-w-0 ml-3 mr-auto">
                                             <p className="text-base font-semibold text-black truncate capitalize">
                                                 {typeof c.userId === 'object' && c.userId !== null && 'username' in c.userId
@@ -58,7 +64,7 @@ export default function ComplaintList({ type }: { type: 'user' | 'agency' }) {
                                                     : String(c.userId)}
                                             </p>
                                             <p className="text-sm text-gray-600 truncate">
-                                                Agency: 
+                                                To:
                                                 {typeof c.agencyId === 'object' && c.agencyId !== null && 'name' in c.agencyId
                                                     ? (c.agencyId as { name: string }).name
                                                     : String(c.agencyId)}
@@ -75,11 +81,11 @@ export default function ComplaintList({ type }: { type: 'user' | 'agency' }) {
                                             <span className="block text-sky-500 mt-2">{new Date(c.createdAt).toLocaleString()}</span>
                                         </p>
                                     </blockquote>
-                                    <ComplaintComments complaintId={c.id} comments={c.comments || []} />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                                    <ComplaintComments complaintId={c.id} comments={sortedComments} />
+                                </li>
+                            );
+                        })}
+                    </ol>
                 </div>
             </section>
         </>

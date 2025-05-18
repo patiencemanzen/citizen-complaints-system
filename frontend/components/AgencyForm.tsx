@@ -16,7 +16,7 @@ type FormData = {
     name: string;
     description: string;
     contactEmail: string;
-    userPassword?: string; // Only required for creation
+    userPassword?: string;
 };
 
 export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormProps) {
@@ -51,10 +51,11 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-40">
+            <div className="bg-white rounded-3xl shadow-lg p-6 w-full max-w-md relative">
                 <button onClick={onCancel} className="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
-                <h2 className="text-xl font-bold mb-4">{agency ? "Edit Agency" : "Add Agency"}</h2>
+                <h2 className="text-xl font-bold mb-4 text-slate-800">{agency ? "Edit Agency" : "Add Agency"}</h2>
+                
                 {toast && <NotificationToast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
@@ -62,7 +63,7 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
                         <input
                             id="name"
                             {...register("name", { required: true })}
-                            className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                            className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                             placeholder="Agency name"
                         />
                         {errors.name && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Name is required!</span>}
@@ -72,7 +73,7 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
                         <textarea
                             id="description"
                             {...register("description", { required: true })}
-                            className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                            className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                             placeholder="Description"
                         />
                         {errors.description && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Description is required!</span>}
@@ -83,7 +84,7 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
                             id="contactEmail"
                             type="email"
                             {...register("contactEmail", { required: true })}
-                            className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                            className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                             placeholder="contact@email.com"
                         />
                         {errors.contactEmail && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Contact email is required!</span>}
@@ -95,7 +96,7 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
                                 id="userPassword"
                                 type="password"
                                 {...register("userPassword", { required: true, minLength: 6 })}
-                                className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                                className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                 placeholder="Password for agency login"
                             />
                             {errors.userPassword && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Password is required (min 6 chars)!</span>}
