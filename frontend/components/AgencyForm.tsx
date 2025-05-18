@@ -16,6 +16,7 @@ type FormData = {
     name: string;
     description: string;
     contactEmail: string;
+    userPassword?: string; // Only required for creation
 };
 
 export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormProps) {
@@ -32,6 +33,11 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
                 await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/agencies/${agency.id}`, data);
                 setToast({ type: "success", message: "Agency updated!" });
             } else {
+                if (!data.userPassword) {
+                    setToast({ type: "error", message: "Password is required for new agency." });
+                    setLoading(false);
+                    return;
+                }
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/agencies`, data);
                 setToast({ type: "success", message: "Agency created!" });
             }
@@ -82,6 +88,19 @@ export default function AgencyForm({ agency, onSuccess, onCancel }: AgencyFormPr
                         />
                         {errors.contactEmail && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Contact email is required!</span>}
                     </div>
+                    {!agency && (
+                        <div>
+                            <label htmlFor="userPassword" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Agency User Password</label>
+                            <input
+                                id="userPassword"
+                                type="password"
+                                {...register("userPassword", { required: true, minLength: 6 })}
+                                className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                                placeholder="Password for agency login"
+                            />
+                            {errors.userPassword && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Password is required (min 6 chars)!</span>}
+                        </div>
+                    )}
                     <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={loading}>
                         {agency ? "Update" : "Create"}
                     </button>

@@ -17,14 +17,14 @@ export class AgenciesController {
   constructor(private readonly agenciesService: AgenciesService) {}
 
   @Post()
+  // @Roles('ADMIN')
   @Public()
-  // @Roles('SUPER_ADMIN')
   create(@Body() createAgencyDto: CreateAgencyDto) {
     return this.agenciesService.create(createAgencyDto);
   }
 
   @Get(':id')
-  // @Roles('AGENCY_USER', 'SUPER_ADMIN')
+  // @Roles('AGENCY_USER', 'ADMIN')
   @Public()
   findOne(@Param('id') id: string) {
     return this.agenciesService.findOne(id);
@@ -37,15 +37,15 @@ export class AgenciesController {
   }
 
   @Put(':id')
-  // @Roles('SUPER_ADMIN')
   @Public()
+  // @Roles('ADMIN')
   update(@Param('id') id: string, @Body() updateAgencyDto: UpdateAgencyDto) {
     return this.agenciesService.update(id, updateAgencyDto);
   }
 
   @Delete(':id')
-  // @Roles('SUPER_ADMIN')
   @Public()
+  // @Roles('ADMIN')
   remove(@Param('id') id: string) {
     return this.agenciesService.remove(id);
   }

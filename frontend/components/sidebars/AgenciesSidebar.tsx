@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 const navLinks = [
-    { href: '/agencies/complaints', label: 'Complaints' },
+    { href: '/agencies', label: 'Complaints' },
 ];
 
 export default function AgencySidebar({ children }: { children: ReactNode }) {

@@ -49,10 +49,11 @@ export default function AdminAgenciesPage() {
     };
 
     return (
-        <main className="container mx-auto py-8">
-            <h1 className="text-2xl font-bold mb-4">Manage Agencies</h1>
+        <main className="container mx-auto py-8 px-20">
+           <div className="flex items-center justify-between">
+             <h1 className="text-2xl font-bold mb-4 text-slate-800">Manage Agencies</h1>
             <button
-                className="mb-4 btn btn-primary"
+                className="mb-4 btn btn-primary text-white bg-indigo-800 rounded-lg px-4 py-2"
                 onClick={() => {
                     setEditAgency(null);
                     setShowForm(true);
@@ -60,6 +61,8 @@ export default function AdminAgenciesPage() {
             >
                 Add Agency
             </button>
+           </div>
+
             {showForm && (
                 <AgencyForm
                     agency={editAgency}
