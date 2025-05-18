@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
+
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import NotificationToast from './NotificationToast';
@@ -16,7 +17,7 @@ export default function ComplaintForm({ onSuccess }: { onSuccess?: (complaint: a
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
 
     type Agency = {
-        id: string;
+        _id: string;
         name: string;
     };
 
@@ -49,7 +50,7 @@ export default function ComplaintForm({ onSuccess }: { onSuccess?: (complaint: a
                     className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
                 >
                     <option value="">Select an agency</option>
-                    {agencies.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+                    {agencies.map(a => <option key={a._id} value={a._id}>{a.name}</option>)}
                 </select>
                 {errors.agencyId && <span className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">Oops!</span> Agency is required!</span>}
             </div>

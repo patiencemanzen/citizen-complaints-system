@@ -10,6 +10,7 @@ export default function UserDashboard() {
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
+    
     const handleComplaintCreated = () => {
         setRefreshKey(k => k + 1);
         closeModal();
@@ -17,7 +18,7 @@ export default function UserDashboard() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            document.documentElement.classList.add('dark'); // Default to dark mode
+            document.documentElement.classList.add('dark');
         }
     }, []);
 
@@ -35,6 +36,7 @@ export default function UserDashboard() {
                         New Complaint
                     </button>
             </div>
+
             {modalOpen && (
                 <div tabIndex={-1} aria-hidden={!modalOpen} className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-40">
                     <div className="relative p-4 w-full max-w-md max-h-full">
@@ -61,6 +63,7 @@ export default function UserDashboard() {
                     </div>
                 </div>
             )}
+
             <ComplaintList type="user" key={refreshKey} />
         </div>
     );

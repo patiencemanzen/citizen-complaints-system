@@ -11,3 +11,7 @@ export class UpdateComplaintDto {
   readonly agencyId?: string;
   readonly status?: string;
 }
+
+export class AddCommentDto {
+  readonly text: string;
+}

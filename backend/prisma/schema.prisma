@@ -16,6 +16,8 @@ model User {
     password String
     email    String @unique
     role     String
+
+    complaints Complaint[] @relation("UserComplaints")
 }
 
 model Agency {
@@ -23,16 +25,21 @@ model Agency {
     name         String
     address      String
     contactEmail String
+
+    complaints Complaint[] @relation("AgencyComplaints")
 }
 
 model Complaint {
     id          String   @id @default(auto()) @map("_id") @db.ObjectId
     title       String
     description String
-    userId      String
-    agencyId    String
+    userId      String   @db.ObjectId
+    agencyId    String   @db.ObjectId
     status      String
     createdAt   DateTime @default(now())
+
+    user        User     @relation("UserComplaints", fields: [userId], references: [id])
+    agency      Agency   @relation("AgencyComplaints", fields: [agencyId], references: [id])
 }
 
 model Role {

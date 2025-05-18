@@ -10,7 +10,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ComplaintsService } from '../services/complaints.service';
-import { CreateComplaintDto, UpdateComplaintDto } from '../dtos/complaints.dto';
+import {
+  CreateComplaintDto,
+  UpdateComplaintDto,
+  AddCommentDto,
+} from '../dtos/complaints.dto';
 // import { Roles } from '../utilities/roles.decorator';
 import { Public } from 'src/utilities/public.decorator';
 import { JwtAuthGuard } from '../utilities/jwt-auth.guard';
@@ -72,5 +76,19 @@ export class ComplaintsController {
   @Public()
   async findByAgencyId(@Param('agencyId') agencyId: string) {
     return this.complaintsService.findByAgencyId(agencyId);
+  }
+
+  @Post(':id/comments')
+  @UseGuards(JwtAuthGuard)
+  async addComment(
+    @Param('id') id: string,
+    @Body() dto: AddCommentDto,
+    @Req() req: Record<string, any>,
+  ) {
+    const user = req?.user as { userId?: string };
+    if (!user || typeof user.userId !== 'string') {
+      throw new Error('User ID not found in request');
+    }
+    return this.complaintsService.addComment(id, user.userId, dto.text);
   }
 }
