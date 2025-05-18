@@ -19,7 +19,6 @@ declare global {
     }
 }
 
-// Google Identity Services script loader
 function loadGoogleScript(onLoad: () => void) {
     if (document.getElementById('google-client-script')) {
         if (window.google && window.google.accounts && window.google.accounts.id) {
@@ -64,7 +63,20 @@ export default function GoogleLoginButton() {
                             const accessToken = (data as { access_token: string }).access_token;
 
                             localStorage.setItem("token", accessToken);
-                            window.location.href = "/dashboard/user";
+                            document.cookie = `token=${accessToken}; path=/;`;
+
+                            try {
+                                const decoded = JSON.parse(atob(accessToken.split('.')[1]));
+                                const userRole = decoded.roles && Array.isArray(decoded.roles) && decoded.roles.length > 0
+                                    ? decoded.roles[0]
+                                    : decoded.role;
+                                    
+                                if (userRole === 'SUPER_ADMIN') window.location.href = '/admin';
+                                else if (userRole === 'AGENCY_USER') window.location.href = '/agencies';
+                                else window.location.href = '/users/complaints';
+                            } catch {
+                                window.location.href = '/users/complaints';
+                            }
                         } catch {
                             alert("Google login failed");
                         }

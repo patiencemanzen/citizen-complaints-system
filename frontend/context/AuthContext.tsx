@@ -26,9 +26,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setToken(t);
         if (t) {
             try {
-                const decoded = jwtDecode<{ role?: string }>(t);
-                setRole(decoded.role || null);
+                const decoded = jwtDecode<{ role?: string; roles?: string[] }>(t);
+                let userRole = null;
+                if (decoded.roles && Array.isArray(decoded.roles) && decoded.roles.length > 0) {
+                    userRole = decoded.roles[0];
+                } else if (decoded.role) {
+                    userRole = decoded.role;
+                }
+                setRole(userRole);
             } catch {
+                console.error("Invalid token");
                 setRole(null);
             }
         } else {

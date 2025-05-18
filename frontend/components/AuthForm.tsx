@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "@/utils/axios";
 import NotificationToast from "./NotificationToast";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { useAuth } from "@/context/AuthContext";
 
 type AuthFormProps = {
     mode: "login" | "register";
@@ -13,6 +14,7 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
     const [form, setForm] = useState({ email: "", password: "", username: "" });
     const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState<{ type: "success" | "error"; message: string } | null>(null);
+    const { setToken } = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,10 +29,29 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
                 const { access_token } = data as { access_token: string };
                 localStorage.setItem("token", access_token);
                 document.cookie = `token=${access_token}; path=/;`;
+                setToken(access_token); // update context
+
+                setTimeout(() => {
+                    const t = access_token;
+
+                    try {
+                        const decoded = JSON.parse(atob(t.split('.')[1]));
+                        const userRole = decoded.roles && Array.isArray(decoded.roles) && decoded.roles.length > 0
+                            ? decoded.roles[0]
+                            : decoded.role;
+
+                        if (userRole === 'SUPER_ADMIN') window.location.href = '/admin';
+                        else if (userRole === 'AGENCY_USER') window.location.href = '/agencies';
+                        else window.location.href = '/users/complaints';
+                    } catch {
+                        window.location.href = '/users/complaints';
+                    }
+                }, 100);
             } else {
                 await axios.post("/auth/register", form);
                 setToast({ type: "success", message: "Registration successful!" });
             }
+
             onSuccess?.();
         } catch (err: unknown) {
             // @ts-expect-error: err might not have response property

@@ -12,7 +12,9 @@ export default function LoginPage() {
                     <Link href="/auth/register" className="text-blue-600 hover:underline text-sm">Register</Link>
                     <Link href="/auth/forgot-password" className="text-blue-600 hover:underline text-sm">Forgot password?</Link>
                 </div>
-                <AuthForm mode="login" onSuccess={() => window.location.href = '/dashboard/user'} />
+                <AuthForm mode="login" onSuccess={() => {
+                    
+                }} />
             </div>
         </main>
     );
