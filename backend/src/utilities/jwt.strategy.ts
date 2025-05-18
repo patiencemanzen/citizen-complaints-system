@@ -16,6 +16,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(payload: any) {
-    return { userId: payload.sub, username: payload.username };
+    // Attach all relevant user info, including roles, to request.user
+    return {
+      userId: payload.sub,
+      username: payload.username,
+      email: payload.email,
+      roles: payload.roles || (payload.role ? [payload.role] : []),
+      role: payload.role,
+      // add any other fields you include in JWT
+    };
   }
 }

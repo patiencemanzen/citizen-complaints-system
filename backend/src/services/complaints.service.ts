@@ -10,8 +10,11 @@ export class ComplaintsService {
     @InjectModel('Complaint') private readonly complaintModel: Model<Complaint>,
   ) {}
 
-  async create(createComplaintDto: CreateComplaintDto): Promise<Complaint> {
-    const created = new this.complaintModel(createComplaintDto);
+  async create(
+    createComplaintDto: CreateComplaintDto,
+    userId: string,
+  ): Promise<Complaint> {
+    const created = new this.complaintModel({ ...createComplaintDto, userId });
     return created.save();
   }
 

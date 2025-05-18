@@ -41,41 +41,53 @@ export default function AuthForm({ mode, onSuccess }: AuthFormProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
             {toast && <NotificationToast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
             {mode === "register" && (
-                <div>
-                    <label className="text-base font-medium text-gray-900">Username</label>
+                <div className="mb-5">
+                    <label htmlFor="username" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">
+                        Username
+                    </label>
                     <input
                         type="text"
+                        id="username"
                         name="username"
                         value={form.username}
                         onChange={handleChange}
                         required
-                        className="block w-full p-4 text-black placeholder-gray-500 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white"
+                        className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                        placeholder="Your username"
                     />
                 </div>
             )}
-            <div>
-                <label className="text-base font-medium text-gray-900">Email address</label>
+            <div className="mb-5">
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">
+                    Email address
+                </label>
                 <input
                     type="email"
+                    id="email"
                     name="email"
                     value={form.email}
                     onChange={handleChange}
                     required
-                    className="block w-full p-4 text-black placeholder-gray-500 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white"
+                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    placeholder="you@email.com"
                 />
             </div>
-            <div>
-                <label className="text-base font-medium text-gray-900">Password</label>
+            <div className="mb-5">
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">
+                    Password
+                </label>
                 <input
                     type="password"
+                    id="password"
                     name="password"
                     value={form.password}
                     onChange={handleChange}
                     required
-                    className="block w-full p-4 text-black placeholder-gray-500 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white"
+                    className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+                    placeholder="Your password"
                 />
             </div>
             <button type="submit" className="btn btn-primary w-full" disabled={loading}>

@@ -14,6 +14,6 @@ export const ComplaintSchema = new Schema({
   description: { type: String, required: true },
   userId: { type: String, required: true },
   agencyId: { type: String, required: true },
-  status: { type: String, required: true },
+  status: { type: String, required: false, default: 'PENDING' },
   createdAt: { type: Date, default: Date.now },
 });

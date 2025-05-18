@@ -5,6 +5,7 @@ import axios from "@/utils/axios";
 import NotificationToast from "@/components/NotificationToast";
 import VerificationCodeInput from "@/components/VerificationCodeInput";
 import PasswordResetForm from "@/components/PasswordResetForm";
+import Link from "next/link";
 
 export default function VerifyCodePage() {
     const [email, setEmail] = useState("");
@@ -32,6 +33,14 @@ export default function VerifyCodePage() {
         <main className="flex items-center justify-center min-h-screen bg-gray-50">
             <div className="w-full max-w-md p-8 bg-white rounded shadow">
                 <h2 className="text-2xl font-bold mb-6 text-center">Verify Code</h2>
+                <div className="flex justify-between mb-4">
+                    <Link href="/auth/login" className="text-blue-600 hover:underline text-sm">
+                        Login
+                    </Link>
+                    <Link href="/auth/register" className="text-blue-600 hover:underline text-sm">
+                        Register
+                    </Link>
+                </div>
                 {!verified ? (
                     <form onSubmit={handleVerify} className="space-y-5">
                         {toast && <NotificationToast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
