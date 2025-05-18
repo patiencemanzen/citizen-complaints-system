@@ -5,6 +5,8 @@ export const UserSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   role: { type: String, required: true },
+  resetCode: { type: String, required: false },
+  resetCodeExpiry: { type: Date, required: false },
 });
 
 export interface User extends Document {
@@ -12,4 +14,6 @@ export interface User extends Document {
   readonly password: string;
   readonly email: string;
   readonly role: string;
+  resetCode?: string;
+  resetCodeExpiry?: Date;
 }
