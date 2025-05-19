@@ -10,17 +10,28 @@ export class ComplaintsService {
     @InjectModel('Complaint') private readonly complaintModel: Model<Complaint>,
   ) {}
 
-  async create(createComplaintDto: CreateComplaintDto): Promise<Complaint> {
-    const created = new this.complaintModel(createComplaintDto);
+  async create(
+    createComplaintDto: CreateComplaintDto,
+    userId: string,
+  ): Promise<Complaint> {
+    const created = new this.complaintModel({ ...createComplaintDto, userId });
     return created.save();
   }
 
   async findAll(): Promise<Complaint[]> {
-    return this.complaintModel.find().exec();
+    return this.complaintModel
+      .find()
+      .populate({ path: 'agencyId' })
+      .populate({ path: 'userId', select: 'username' })
+      .exec();
   }
 
   async findOne(id: string): Promise<Complaint> {
-    const complaint = await this.complaintModel.findById(id).exec();
+    const complaint = await this.complaintModel
+      .findById(id)
+      .populate('agencyId')
+      .populate({ path: 'userId', select: 'username' })
+      .exec();
     if (!complaint) throw new NotFoundException('Complaint not found');
     return complaint;
   }
@@ -39,10 +50,36 @@ export class ComplaintsService {
   }
 
   async findByUserId(userId: string): Promise<Complaint[]> {
-    return this.complaintModel.find({ userId }).exec();
+    return this.complaintModel
+      .find({ userId })
+      .populate('agencyId')
+      .populate({ path: 'userId', select: 'username' })
+      .exec();
   }
 
   async findByAgencyId(agencyId: string): Promise<Complaint[]> {
-    return this.complaintModel.find({ agencyId }).exec();
+    return this.complaintModel
+      .find({ agencyId })
+      .populate('agencyId')
+      .populate({ path: 'userId', select: 'username' })
+      .exec();
+  }
+
+  async addComment(complaintId: string, userId: string, text: string) {
+    return this.complaintModel
+      .findByIdAndUpdate(
+        complaintId,
+        {
+          $push: {
+            comments: {
+              userId,
+              text,
+              createdAt: new Date(),
+            },
+          },
+        },
+        { new: true },
+      )
+      .exec();
   }
 }

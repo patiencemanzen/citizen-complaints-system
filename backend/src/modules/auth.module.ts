@@ -4,10 +4,23 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from '../services/auth.service';
 import { AuthController } from '../controllers/auth.controller';
 import { JwtStrategy } from '../utilities/jwt.strategy';
+import { UsersModule } from './users.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-  imports: [PassportModule, JwtModule.register({})],
+  imports: [
+    PassportModule,
+    ConfigModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '1d' },
+      }),
+    }),
+    UsersModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
   exports: [AuthService],
