@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 
 const navLinks = [
     { href: '/admin/complaints', label: 'Complaints' },
-    { href: '/admin/agencies', label: 'Agencies' },
 ];
 
 export default function AdminSidebar({ children }: { children: ReactNode }) {

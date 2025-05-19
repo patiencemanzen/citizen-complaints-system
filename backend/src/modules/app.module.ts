@@ -9,8 +9,8 @@ import { ComplaintsModule } from './complaints.module';
 import { RolesModule } from './roles.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from '../utilities/roles.guard';
-import { JwtAuthGuard } from '../utilities/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
 
 @Module({
   imports: [

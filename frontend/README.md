@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Citizen Complaints System – Frontend
+
+This is the frontend for the Citizen Complaints and Engagement System, built with [Next.js](https://nextjs.org), Tailwind CSS, and Flowbite. It provides a modern, user-friendly interface for citizens, agencies, and administrators to interact with the platform.
+
+## Features
+
+- **User Authentication:** Register, login, password reset, and Google OAuth.
+- **Role-Based Dashboards:** Separate dashboards and navigation for citizens, agency users, and admins.
+- **Complaint Management:** Submit, view, and comment on complaints. Agencies can manage assigned complaints.
+- **Agency Management:** Admins can create, edit, and delete agencies. Each agency is linked to a user account.
+- **Comment System:** Users can add comments to complaints for engagement and follow-up.
+- **Responsive UI:** Built with Tailwind CSS and Flowbite for a modern, accessible experience.
+
+## Basic Workflow
+
+1. **User Registration & Login:**
+   - Citizens and agencies can register or log in using email/password or Google.
+   - Admins can only be created by the backend or via database.
+
+2. **Submitting a Complaint:**
+   - Citizens submit complaints via a modal form.
+   - Complaints are routed to the appropriate agency.
+
+3. **Agency Management:**
+   - Only admins can create agencies. Each agency must have a unique email and password (used for login).
+   - When an agency is created, a user account with the "AGENCY_USER" role is also created.
+
+4. **Complaint Handling:**
+   - Agencies see complaints assigned to them and can update status or add comments.
+   - Citizens can view their own complaints and comment on them.
+
+5. **Role-Based Navigation:**
+   - Navigation and dashboard content change based on the user's role (citizen, agency, admin).
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Set environment variables:**
+   - Copy `.env.example` to `.env.local` and fill in the required values:
+     - `NEXT_PUBLIC_API_URL` – URL of the backend API (e.g., <http://localhost:4000>)
+     - Google OAuth client ID, etc. (if using Google login)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Run the development server:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## Learn More
+   Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/` – Next.js App Router pages and layouts
+- `components/` – Reusable UI components (forms, lists, cards, etc.)
+- `context/` – React context for authentication/session
+- `types/` – TypeScript type definitions
+- `utils/` – Utility functions (e.g., Axios instance)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Requirements
 
-## Deploy on Vercel
+- Node.js 18+
+- Backend API (NestJS, see `/backend`)
+- MongoDB database (for backend)
+- Environment variables set in `.env.local`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Customization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Update branding, colors, and content in `app/page.tsx` and `components/` as needed.
+- Add more roles, permissions, or features by extending the backend and frontend code.
+
+## License
+
+This project is for demonstration and educational purposes. See LICENSE for details.

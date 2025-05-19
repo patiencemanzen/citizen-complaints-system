@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import AgencyCard from "@/components/AgencyCard";
 import axios from "axios";
 import AgencyForm from "../../components/AgencyForm";
-
-export type Agency = {
-    id: string;
-    name: string;
-    description: string;
-    contactEmail: string;
-};
+import { Agency } from "@/types/agency";
 
 export default function AdminAgenciesPage() {
     const [agencies, setAgencies] = useState<Agency[]>([]);

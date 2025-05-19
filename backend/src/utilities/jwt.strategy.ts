@@ -23,7 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       email: payload.email,
       roles: payload.roles || (payload.role ? [payload.role] : []),
       role: payload.role,
-      // add any other fields you include in JWT
     };
   }
 }

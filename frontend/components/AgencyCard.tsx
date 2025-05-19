@@ -1,9 +1,4 @@
-type Agency = {
-  id: string;
-  name: string;
-  description: string;
-  contactEmail: string;
-};
+import { Agency } from "@/types/agency";
 
 export default function AgencyCard({ agency, admin, onEdit, onDelete }: { agency: Agency; admin?: boolean, onEdit?: () => void; onDelete?: () => void }) {
   return (

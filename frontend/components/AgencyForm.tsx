@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import NotificationToast from "@/components/NotificationToast";
-import type { Agency } from "../app/admin/page";
+import { Agency } from "@/types/agency";
 
 interface AgencyFormProps {
     agency?: Agency | null;

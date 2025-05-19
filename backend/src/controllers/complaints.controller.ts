@@ -17,7 +17,7 @@ import {
 } from '../dtos/complaints.dto';
 // import { Roles } from '../utilities/roles.decorator';
 import { Public } from 'src/utilities/public.decorator';
-import { JwtAuthGuard } from '../utilities/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
 @Controller('complaints')
 export class ComplaintsController {

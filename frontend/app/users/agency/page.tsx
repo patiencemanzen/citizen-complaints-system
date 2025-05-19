@@ -3,13 +3,7 @@
 import { useEffect, useState } from 'react';
 import AgencyCard from '@/components/AgencyCard';
 import api from '@/utils/axios';
-
-type Agency = {
-  id: string;
-  name: string;
-  description: string;
-  contactEmail: string;
-};
+import { Agency } from '@/types/agency';
 
 export default function AgencyDashboard() {
   const [agencies, setAgencies] = useState<Agency[]>([]);
