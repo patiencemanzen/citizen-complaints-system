@@ -1,32 +1,48 @@
 # Citizen Complaints and Engagement System
 
-Digital platform that enables citizens to submit complaints or feedback regarding public services, track the status of their issues, and engage with relevant government agencies. The system categorizes and routes submissions to the appropriate departments, provides dashboards for agencies to manage responses, and includes role-based access for public users, agency staff, and administrators. Its goal is to streamline communication, increase transparency, and improve public service delivery.
+A full-stack digital platform for citizens to submit complaints or feedback about public services, track their status, and engage with government agencies. The system features role-based dashboards for citizens, agency staff, and administrators, and is designed to streamline communication, increase transparency, and improve public service delivery.
 
-## Key Features
+## Features
 
-- **Complaint Submission:** Citizens can easily submit complaints or feedback online.
-- **Status Tracking:** Users can track the progress and resolution of their submissions.
-- **Automated Routing:** Complaints are categorized and routed to the appropriate government departments or agencies.
-- **Agency Dashboards:** Agencies have dashboards to view, manage, and respond to complaints efficiently.
-- **Role-Based Access:** Supports different user roles including citizens, agency staff, and administrators for secure and appropriate access.
-- **Transparency:** Provides visibility into complaint handling and resolution processes.
-- **Engagement:** Facilitates two-way communication between the public and government agencies.
+- **Complaint Submission:** Citizens can submit complaints or feedback online.
+- **Status Tracking:** Track the progress and resolution of submissions.
+- **Automated Routing:** Complaints are categorized and routed to the correct agency.
+- **Agency Dashboards:** Agencies manage and respond to assigned complaints.
+- **Role-Based Access:** Secure dashboards for citizens, agency users, and admins.
+- **Comment System:** All users can comment on complaints for engagement and follow-up.
+- **Authentication:** Email/password and Google OAuth login.
+- **Admin Controls:** Admins manage agencies and users.
 
-## Benefits
+## Basic Workflow
 
-- Streamlines communication between citizens and government agencies.
-- Increases transparency and accountability in public service delivery.
-- Improves response times and service quality.
-- Empowers citizens to participate in governance and service improvement.
+1. **Citizens** register/login and submit complaints.
+2. **Complaints** are routed to the appropriate agency.
+3. **Agencies** log in to view, manage, and respond to assigned complaints.
+4. **Admins** manage agencies, users, and system settings.
+5. **All users** can comment on complaints for updates and engagement.
+
+## Tech Stack
+
+- **Backend:** NestJS, TypeScript, MongoDB (Mongoose & Prisma), JWT, Nodemailer, Google OAuth
+- **Frontend:** Next.js (App Router), Tailwind CSS, Flowbite, Axios, React Context
 
 ## Project Structure
 
-- **backend/**: NestJS, TypeScript, MongoDB (Mongoose), Prisma ORM, RESTful API
-- **frontend/**: Next.js for user and agency dashboards, Google OAuth integration
+- `backend/` – API, authentication, business logic, and database models
+- `frontend/` – User/admin/agency dashboards, forms, and UI components
 
 ## Getting Started
 
-See the `backend/README.md` for backend setup and API usage instructions. Frontend instructions will be added soon.
+1. **Backend:**
+   - See [`backend/README.md`](./backend/README.md) for setup, environment variables, and API usage.
+2. **Frontend:**
+   - See [`frontend/README.md`](./frontend/README.md) for setup, environment variables, and running the UI.
+
+## Contribution
+
+- Open issues for bugs or feature requests.
+- Submit pull requests for improvements.
+- See individual `README.md` files in `backend/` and `frontend/` for development notes and requirements.
 
 ---
 
