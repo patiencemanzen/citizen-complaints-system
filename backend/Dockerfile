@@ -1,14 +1,21 @@
-# Backend Dockerfile for Citizen Complaints System
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
 COPY . .
 
 RUN npm run build
+
+FROM node:18-alpine AS prod
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+RUN npm prune --production
 
 EXPOSE 4000
 
